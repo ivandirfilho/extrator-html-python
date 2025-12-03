@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrator Beat - Transforme Seus Dados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'syne': ['Syne', 'sans-serif'],
+                        'outfit': ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'midnight': '#0a0a0f',
+                        'electric': '#00ff88',
+                        'neon-pink': '#ff2d6a',
+                        'deep-purple': '#1a1a2e',
+                        'soft-white': '#f0f0f5',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'slide-up-delay-1': 'slideUp 0.8s ease-out 0.2s forwards',
+                        'slide-up-delay-2': 'slideUp 0.8s ease-out 0.4s forwards',
+                        'slide-up-delay-3': 'slideUp 0.8s ease-out 0.6s forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #0a0a0f, #1a1a2e, #0f0f1a, #151525);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .glow-electric {
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3), 0 0 80px rgba(0, 255, 136, 0.1);
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        
+        .blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        
+        .opacity-0-initial {
+            opacity: 0;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.5);
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen font-outfit text-soft-white overflow-x-hidden">
+    
+    <!-- Grid Pattern Overlay -->
+    <div class="fixed inset-0 grid-pattern pointer-events-none"></div>
+    
+    <!-- Floating Blobs -->
+    <div class="fixed top-20 -left-32 w-96 h-96 bg-electric/5 blob animate-float blur-3xl pointer-events-none"></div>
+    <div class="fixed bottom-20 -right-32 w-80 h-80 bg-neon-pink/5 blob animate-float blur-3xl pointer-events-none" style="animation-delay: -3s;"></div>
+    
+    <!-- Header -->
+    <header class="relative z-50">
+        <nav class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-electric rounded-lg flex items-center justify-center group-hover:glow-electric transition-all duration-300">
+                        <svg class="w-6 h-6 text-midnight" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <span class="font-syne font-bold text-2xl tracking-tight">
+                        Extrator<span class="text-electric">Beat</span>
+                    </span>
+                </a>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-soft-white/70 hover:text-electric transition-colors duration-300 font-medium">Recursos</a>
+                    <a href="#about" class="text-soft-white/70 hover:text-electric transition-colors duration-300 font-medium">Sobre</a>
+                    <a href="#pricing" class="text-soft-white/70 hover:text-electric transition-colors duration-300 font-medium">Preços</a>
+                    <a href="#contact" class="text-soft-white/70 hover:text-electric transition-colors duration-300 font-medium">Contato</a>
+                </div>
+                
+                <!-- CTA Button -->
+                <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-electric text-midnight px-6 py-3 rounded-full font-semibold hover-lift glow-electric">
+                    Começar Agora
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-soft-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="relative z-10 min-h-[90vh] flex items-center">
+        <div class="container mx-auto px-6 py-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8">
+                    <!-- Badge -->
+                    <div class="opacity-0-initial animate-slide-up inline-flex items-center gap-2 bg-deep-purple/80 border border-electric/20 rounded-full px-4 py-2 text-sm">
+                        <span class="w-2 h-2 bg-electric rounded-full animate-pulse"></span>
+                        <span class="text-soft-white/80">Novo: Extração em tempo real</span>
+                    </div>
+                    
+                    <!-- Headline -->
+                    <h1 class="opacity-0-initial animate-slide-up-delay-1 font-syne font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight">
+                        Extraia dados com
+                        <span class="text-electric glow-text block">precisão absoluta</span>
+                    </h1>
+                    
+                    <!-- Description -->
+                    <p class="opacity-0-initial animate-slide-up-delay-2 text-xl text-soft-white/60 max-w-lg leading-relaxed">
+                        Transforme informações brutas em insights poderosos. Nossa tecnologia de ponta automatiza a extração e análise de dados em segundos.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="opacity-0-initial animate-slide-up-delay-3 flex flex-wrap gap-4">
+                        <a href="#contact" class="inline-flex items-center gap-3 bg-electric text-midnight px-8 py-4 rounded-full font-bold text-lg hover-lift glow-electric">
+                            Teste Grátis
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
+                        <a href="#features" class="inline-flex items-center gap-3 bg-transparent border-2 border-soft-white/20 text-soft-white px-8 py-4 rounded-full font-bold text-lg hover:border-electric/50 hover:text-electric transition-all duration-300">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            Ver Demo
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="opacity-0-initial animate-slide-up-delay-3 flex gap-12 pt-8 border-t border-soft-white/10">
+                        <div>
+                            <div class="font-syne font-bold text-3xl text-electric">10M+</div>
+                            <div class="text-soft-white/50 text-sm">Dados extraídos</div>
+                        </div>
+                        <div>
+                            <div class="font-syne font-bold text-3xl text-electric">99.9%</div>
+                            <div class="text-soft-white/50 text-sm">Precisão</div>
+                        </div>
+                        <div>
+                            <div class="font-syne font-bold text-3xl text-electric">500+</div>
+                            <div class="text-soft-white/50 text-sm">Empresas</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Content - Visual Element -->
+                <div class="relative hidden lg:block">
+                    <div class="relative w-full aspect-square">
+                        <!-- Main Visual -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-electric/20 to-neon-pink/20 rounded-3xl backdrop-blur-sm border border-electric/10 animate-float">
+                            <div class="absolute inset-4 bg-deep-purple/50 rounded-2xl overflow-hidden">
+                                <!-- Mock Data Visualization -->
+                                <div class="p-6 space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-3 h-3 rounded-full bg-neon-pink"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-electric"></div>
+                                    </div>
+                                    <div class="space-y-3 pt-4">
+                                        <div class="h-4 bg-electric/30 rounded-full w-3/4"></div>
+                                        <div class="h-4 bg-electric/20 rounded-full w-full"></div>
+                                        <div class="h-4 bg-electric/30 rounded-full w-5/6"></div>
+                                        <div class="h-4 bg-electric/10 rounded-full w-2/3"></div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-3 pt-6">
+                                        <div class="h-24 bg-electric/20 rounded-lg"></div>
+                                        <div class="h-32 bg-electric/30 rounded-lg"></div>
+                                        <div class="h-20 bg-electric/25 rounded-lg"></div>
+                                    </div>
+                                    <div class="flex gap-2 pt-4">
+                                        <div class="h-8 bg-neon-pink/30 rounded-full flex-1"></div>
+                                        <div class="h-8 bg-electric/40 rounded-full flex-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Cards -->
+                        <div class="absolute -top-6 -right-6 bg-deep-purple/90 border border-electric/20 rounded-2xl p-4 backdrop-blur-sm animate-float" style="animation-delay: -2s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-electric/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold">Extração completa</div>
+                                    <div class="text-xs text-soft-white/50">2.4k registros</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-4 -left-4 bg-deep-purple/90 border border-neon-pink/20 rounded-2xl p-4 backdrop-blur-sm animate-float" style="animation-delay: -4s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-neon-pink/20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold">Velocidade</div>
+                                    <div class="text-xs text-soft-white/50">0.3s por registro</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="relative z-10 py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="font-syne font-bold text-4xl md:text-5xl mb-6">
+                    Por que escolher o <span class="text-electric">Extrator Beat</span>?
+                </h2>
+                <p class="text-soft-white/60 text-xl max-w-2xl mx-auto">
+                    Tecnologia avançada que transforma a maneira como você trabalha com dados
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="group bg-deep-purple/30 border border-soft-white/5 rounded-3xl p-8 hover:border-electric/30 transition-all duration-500 hover-lift">
+                    <div class="w-14 h-14 bg-electric/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-electric/20 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-syne font-bold text-xl mb-3">Ultra Rápido</h3>
+                    <p class="text-soft-white/50 leading-relaxed">Processe milhões de registros em segundos com nossa infraestrutura otimizada.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="group bg-deep-purple/30 border border-soft-white/5 rounded-3xl p-8 hover:border-electric/30 transition-all duration-500 hover-lift">
+                    <div class="w-14 h-14 bg-electric/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-electric/20 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-syne font-bold text-xl mb-3">100% Seguro</h3>
+                    <p class="text-soft-white/50 leading-relaxed">Criptografia de ponta a ponta e conformidade com LGPD garantida.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="group bg-deep-purple/30 border border-soft-white/5 rounded-3xl p-8 hover:border-electric/30 transition-all duration-500 hover-lift">
+                    <div class="w-14 h-14 bg-electric/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-electric/20 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-electric" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-syne font-bold text-xl mb-3">API Flexível</h3>
+                    <p class="text-soft-white/50 leading-relaxed">Integre facilmente com qualquer sistema através da nossa API RESTful.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="relative z-10 py-32">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-deep-purple/50 border border-soft-white/5 rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden">
+                    <!-- Background Decoration -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-electric/5 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-neon-pink/5 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="text-center mb-12">
+                            <h2 class="font-syne font-bold text-4xl md:text-5xl mb-4">
+                                Vamos <span class="text-electric">conversar</span>?
+                            </h2>
+                            <p class="text-soft-white/60 text-lg max-w-lg mx-auto">
+                                Preencha o formulário e nossa equipe entrará em contato em até 24 horas.
+                            </p>
+                        </div>
+                        
+                        <form class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-soft-white/70 mb-2">Nome completo</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Seu nome"
+                                        class="w-full bg-midnight/50 border border-soft-white/10 rounded-xl px-5 py-4 text-soft-white placeholder-soft-white/30 focus:border-electric transition-colors duration-300"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-soft-white/70 mb-2">E-mail</label>
+                                    <input 
+                                        type="email" 
+                                        placeholder="seu@email.com"
+                                        class="w-full bg-midnight/50 border border-soft-white/10 rounded-xl px-5 py-4 text-soft-white placeholder-soft-white/30 focus:border-electric transition-colors duration-300"
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-soft-white/70 mb-2">Empresa</label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Nome da sua empresa"
+                                    class="w-full bg-midnight/50 border border-soft-white/10 rounded-xl px-5 py-4 text-soft-white placeholder-soft-white/30 focus:border-electric transition-colors duration-300"
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-soft-white/70 mb-2">Mensagem</label>
+                                <textarea 
+                                    rows="5"
+                                    placeholder="Conte-nos sobre seu projeto..."
+                                    class="w-full bg-midnight/50 border border-soft-white/10 rounded-xl px-5 py-4 text-soft-white placeholder-soft-white/30 focus:border-electric transition-colors duration-300 resize-none"
+                                ></textarea>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between pt-4">
+                                <p class="text-soft-white/40 text-sm">
+                                    Ao enviar, você concorda com nossa 
+                                    <a href="#" class="text-electric hover:underline">Política de Privacidade</a>
+                                </p>
+                                <button 
+                                    type="submit"
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-electric text-midnight px-10 py-4 rounded-full font-bold text-lg hover-lift glow-electric"
+                                >
+                                    Enviar mensagem
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-soft-white/5 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-electric rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-midnight" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <span class="font-syne font-bold text-xl">
+                        Extrator<span class="text-electric">Beat</span>
+                    </span>
+                </a>
+                
+                <!-- Links -->
+                <div class="flex items-center gap-8 text-soft-white/50">
+                    <a href="#" class="hover:text-electric transition-colors duration-300">Termos</a>
+                    <a href="#" class="hover:text-electric transition-colors duration-300">Privacidade</a>
+                    <a href="#" class="hover:text-electric transition-colors duration-300">Suporte</a>
+                </div>
+                
+                <!-- Copyright -->
+                <p class="text-soft-white/30 text-sm">
+                    © 2025 Extrator Beat. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
+
