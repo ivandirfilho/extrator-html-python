@@ -78,8 +78,7 @@ class ExtratorHTMLGUI:
         self.url_entry = ttk.Entry(
             url_frame, 
             width=80, 
-            font=('Arial', 10),
-            relief='flat'
+            font=('Arial', 10)
         )
         self.url_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(0, 5))
         self.url_entry.bind('<Return>', lambda e: self.extrair_thread())
