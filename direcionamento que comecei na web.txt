@@ -1,0 +1,1824 @@
+https://gemini.google.com/share/ee2aa49ed862 nesse linnk tenho uma janela gerado pelo google gostaria de extrair o codigo html da geração feita por visualização dinamica 
+
+
+Claude 4.5 Sonnet
+Inner AI Fusion
+Entendi, você quer extrair o código HTML de uma conversa compartilhada do Gemini que contém uma visualização dinâmica. Vou te ajudar com isso!
+
+Baseado nas fontes encontradas, o Gemini permite exportar respostas para diferentes formatos  
+
+Exportar respostas dos apps do Gemini - Computador + 1
+Abordagens para extrair o conteúdo:
+1. Inspeção direta no navegador (mais simples)
+Abra o link no navegador
+Pressione F12 ou Ctrl+Shift+I (Windows/Linux) / Cmd+Option+I (Mac)
+Na aba Elements/Elementos, você verá todo o HTML da página
+Localize o elemento da visualização dinâmica
+Clique com botão direito → "Copy" → "Copy element" ou "Copy outer HTML"
+2. Web Scraping com Python (automatizado)
+Posso criar um script que:
+
+Acessa o link compartilhado
+Extrai o HTML completo ou específico da visualização
+Salva em um arquivo
+python
+Copiar
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://gemini.google.com/share/ee2aa49ed862"
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Extrair todo HTML ou elementos específicos
+html_content = soup.prettify()
+3. Exportação nativa do Gemini
+Se você tem acesso à conversa original (não apenas o link compartilhado), pode exportar diretamente para Google Docs  
+
+Exportar respostas dos apps do Gemini - Computador + 1
+Qual abordagem prefere? Posso detalhar qualquer uma delas ou criar um script completo de web scraping para você extrair esse conteúdo automaticamente.
+
+Encontrado em:
+
+Exportar respostas dos apps do Gemini - Computador
+
+
+Exportar respostas dos apps do Gemini - Android
+
+
+Export Google AI (Gemini) Results into a Document
+
+
+Web Scraping com Gemini AI em Python - Guia passo a passo
+
+
+Copiar
+daria para criar um arquivo executavel em python para que quando eu colocar uma url tipo essa do google ele ja me responder com o codigo html do beautifulsoup ? 
+
+
+Claude 4.5 Sonnet
+Inner AI Fusion
+Com certeza! Vou criar um executável Python que recebe uma URL e extrai o HTML usando BeautifulSoup. Vou fazer duas versões: um script simples e depois te mostrar como transformar em executável (.exe).
+
+1. Script Python Principal
+python
+Copiar
+
+import requests
+from bs4 import BeautifulSoup
+import sys
+from datetime import datetime
+import os
+
+def extrair_html(url):
+    """
+    Extrai o HTML de uma URL usando BeautifulSoup
+    """
+    try:
+        print(f"🔍 Acessando: {url}")
+
+        # Headers para simular um navegador real
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+
+        # Fazer requisição
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
+
+        print(f"✅ Status: {response.status_code}")
+
+        # Parse com BeautifulSoup
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # HTML formatado
+        html_bonito = soup.prettify()
+
+        # Criar nome do arquivo com timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nome_arquivo = f"html_extraido_{timestamp}.html"
+
+        # Salvar arquivo
+        with open(nome_arquivo, 'w', encoding='utf-8') as f:
+            f.write(html_bonito)
+
+        print(f"\n📄 HTML salvo em: {nome_arquivo}")
+        print(f"📊 Tamanho: {len(html_bonito)} caracteres")
+        print(f"📍 Local: {os.path.abspath(nome_arquivo)}")
+
+        # Mostrar preview
+        print("\n--- PREVIEW (primeiras 500 caracteres) ---")
+        print(html_bonito[:500])
+        print("...")
+
+        return html_bonito
+
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro ao acessar URL: {e}")
+        return None
+    except Exception as e:
+        print(f"❌ Erro inesperado: {e}")
+        return None
+
+def main():
+    print("=" * 60)
+    print("🌐 EXTRATOR DE HTML - BeautifulSoup")
+    print("=" * 60)
+    print()
+
+    # Verificar se URL foi passada como argumento
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+    else:
+        # Solicitar URL ao usuário
+        url = input("📎 Cole a URL aqui: ").strip()
+
+    if not url:
+        print("❌ URL não fornecida!")
+        input("\nPressione ENTER para sair...")
+        return
+
+    # Validar URL básica
+    if not url.startswith(('http://', 'https://')):
+        print("⚠️  Adicionando 'https://' à URL...")
+        url = 'https://' + url
+
+    # Extrair HTML
+    extrair_html(url)
+
+    print("\n" + "=" * 60)
+    input("\n✅ Processo concluído! Pressione ENTER para sair...")
+
+if __name__ == "__main__":
+    main()
+2. Arquivo de Requisitos (requirements.txt)
+txt
+Copiar
+
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+3. Como Usar
+Opção A: Executar como script Python
+bash
+Copiar
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Executar com URL como argumento
+python extrator_html.py https://gemini.google.com/share/ee2aa49ed862
+
+# Ou executar e digitar URL depois
+python extrator_html.py
+Opção B: Criar executável (.exe) com PyInstaller
+bash
+Copiar
+
+# Instalar PyInstaller
+pip install pyinstaller
+
+# Criar executável
+pyinstaller --onefile --name ExtratorHTML --icon=icon.ico extrator_html.py
+
+# O .exe estará em: dist/ExtratorHTML.exe
+4. Script de Build Automatizado (build.py)
+python
+Copiar
+
+import os
+import subprocess
+import sys
+
+def criar_executavel():
+    """
+    Cria executável automaticamente
+    """
+    print("🔨 Criando executável...")
+
+    # Comando PyInstaller
+    comando = [
+        'pyinstaller',
+        '--onefile',
+        '--name', 'ExtratorHTML',
+        '--clean',
+        '--noconfirm',
+        'extrator_html.py'
+    ]
+
+    try:
+        subprocess.run(comando, check=True)
+        print("\n✅ Executável criado com sucesso!")
+        print("📍 Localização: dist/ExtratorHTML.exe")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Erro ao criar executável: {e}")
+    except FileNotFoundError:
+        print("❌ PyInstaller não encontrado. Instale com: pip install pyinstaller")
+
+if __name__ == "__main__":
+    criar_executavel()
+5. Versão com Interface Gráfica (BONUS)
+python
+Copiar
+
+import tkinter as tk
+from tkinter import ttk, scrolledtext, messagebox
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+import threading
+
+class ExtratorHTMLGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("🌐 Extrator de HTML")
+        self.root.geometry("800x600")
+
+        # Frame principal
+        main_frame = ttk.Frame(root, padding="10")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+        # URL Input
+        ttk.Label(main_frame, text="URL:").grid(row=0, column=0, sticky=tk.W, pady=5)
+        self.url_entry = ttk.Entry(main_frame, width=70)
+        self.url_entry.grid(row=0, column=1, pady=5, padx=5)
+
+        # Botão Extrair
+        self.btn_extrair = ttk.Button(main_frame, text="🔍 Extrair HTML", command=self.extrair_thread)
+        self.btn_extrair.grid(row=0, column=2, pady=5)
+
+        # Área de texto
+        ttk.Label(main_frame, text="HTML Extraído:").grid(row=1, column=0, sticky=tk.W, pady=5)
+        self.texto_html = scrolledtext.ScrolledText(main_frame, width=90, height=30)
+        self.texto_html.grid(row=2, column=0, columnspan=3, pady=5)
+
+        # Botão Salvar
+        self.btn_salvar = ttk.Button(main_frame, text="💾 Salvar Arquivo", command=self.salvar_arquivo)
+        self.btn_salvar.grid(row=3, column=1, pady=10)
+
+        # Status
+        self.status_label = ttk.Label(main_frame, text="Pronto", foreground="green")
+        self.status_label.grid(row=4, column=0, columnspan=3)
+
+    def extrair_thread(self):
+        """Executa extração em thread separada"""
+        thread = threading.Thread(target=self.extrair_html)
+        thread.daemon = True
+        thread.start()
+
+    def extrair_html(self):
+        url = self.url_entry.get().strip()
+
+        if not url:
+            messagebox.showwarning("Aviso", "Por favor, insira uma URL!")
+            return
+
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
+
+        self.status_label.config(text="⏳ Extraindo...", foreground="orange")
+        self.btn_extrair.config(state='disabled')
+
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.content, 'html.parser')
+            html_bonito = soup.prettify()
+
+            self.texto_html.delete(1.0, tk.END)
+            self.texto_html.insert(1.0, html_bonito)
+
+            self.status_label.config(text=f"✅ Extraído com sucesso! ({len(html_bonito)} caracteres)", foreground="green")
+
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao extrair HTML:\n{str(e)}")
+            self.status_label.config(text="❌ Erro na extração", foreground="red")
+
+        finally:
+            self.btn_extrair.config(state='normal')
+
+    def salvar_arquivo(self):
+        conteudo = self.texto_html.get(1.0, tk.END)
+
+        if not conteudo.strip():
+            messagebox.showwarning("Aviso", "Nenhum conteúdo para salvar!")
+            return
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nome_arquivo = f"html_extraido_{timestamp}.html"
+
+        try:
+            with open(nome_arquivo, 'w', encoding='utf-8') as f:
+                f.write(conteudo)
+
+            messagebox.showinfo("Sucesso", f"Arquivo salvo:\n{nome_arquivo}")
+            self.status_label.config(text=f"💾 Salvo: {nome_arquivo}", foreground="blue")
+
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao salvar:\n{str(e)}")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ExtratorHTMLGUI(root)
+    root.mainloop()
+📦 Estrutura Final do Projeto
+extrator-html/
+│
+├── extrator_html.py          # Script principal (CLI)
+├── extrator_html_gui.py      # Versão com interface gráfica
+├── build.py                  # Script para criar .exe
+├── requirements.txt          # Dependências
+└── README.md                 # Instruções
+🚀 Passos para Criar o Executável
+Instale as dependências:
+bash
+Copiar
+
+pip install -r requirements.txt
+pip install pyinstaller
+Execute o build:
+bash
+Copiar
+
+python build.py
+Use o executável:
+bash
+Copiar
+
+# Windows
+dist\ExtratorHTML.exe
+
+# Ou arraste e solte a URL no executável
+Qual versão você prefere? A CLI (linha de comando) ou a GUI (interface gráfica)? Posso ajustar qualquer detalhe!
+
+
+Copiar
+estou utilizando inner ai poderia linkar no git hub para ja criar la na nuvem os arquivos e projetos e a gente editar por aqui? 
+
+
+Claude 4.5 Sonnet
+Inner AI Fusion
+Ótima ideia! Vou te guiar para criar o repositório no GitHub e depois podemos editar tudo por aqui mesmo. Vou criar um guia passo a passo:
+
+🚀 Passo 1: Criar Repositório no GitHub
+Acesse: https://github.com/new
+
+Configure assim:
+
+Repository name: extrator-html-python
+Description: Ferramenta para extrair HTML de qualquer URL usando BeautifulSoup
+Public ✅ (ou Private se preferir)
+Add README ✅
+Add .gitignore: Python
+License: MIT (opcional)
+Clique em "Create repository"
+
+📋 Passo 2: Estrutura Completa do Projeto
+Depois de criar, vou te passar todos os arquivos para você adicionar. Aqui está a estrutura completa:
+
+README.md
+markdown
+Copiar
+
+# 🌐 Extrator de HTML - Python
+
+Ferramenta simples e poderosa para extrair HTML de qualquer URL usando BeautifulSoup.
+
+## ✨ Funcionalidades
+
+- ✅ Extração de HTML de qualquer URL
+- ✅ Salva automaticamente em arquivo .html
+- ✅ Interface CLI (linha de comando)
+- ✅ Interface GUI (gráfica com Tkinter)
+- ✅ Pode ser compilado para executável (.exe)
+- ✅ Preview do HTML extraído
+
+## 🛠️ Instalação
+
+bash
+
+Clone o repositório
+git clone https://github.com/SEU_USUARIO/extrator-html-python.git cd extrator-html-python
+
+Instale as dependências
+pip install -r requirements.txt
+
+## 🚀 Como Usar
+
+### Versão CLI (Linha de Comando)
+
+<div class="widget code-container remove-before-copy"><div class="code-header non-draggable"><span class="iaf s13 w700 code-language-placeholder">bash</span><div class="code-copy-button"><span class="iaf s13 w500 code-copy-placeholder">Copiar</span><img class="code-copy-icon" src="data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M10.8%208.63V11.57C10.8%2014.02%209.82%2015%207.37%2015H4.43C1.98%2015%201%2014.02%201%2011.57V8.63C1%206.18%201.98%205.2%204.43%205.2H7.37C9.82%205.2%2010.8%206.18%2010.8%208.63Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M15%204.42999V7.36999C15%209.81999%2014.02%2010.8%2011.57%2010.8H10.8V8.62999C10.8%206.17999%209.81995%205.19999%207.36995%205.19999H5.19995V4.42999C5.19995%201.97999%206.17995%200.999992%208.62995%200.999992H11.57C14.02%200.999992%2015%201.97999%2015%204.42999Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E%0A" /></div></div><pre id="code-w2ll7vka9" style="color:white;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;padding:8px;margin:8px;overflow:auto;background:#011627;width:calc(100% - 8px);border-radius:8px;box-shadow:0px 8px 18px 0px rgba(120, 120, 143, 0.10), 2px 2px 10px 0px rgba(255, 255, 255, 0.30) inset"><code class="language-bash" style="white-space:pre;color:#d6deeb;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none"><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># Passar URL como argumento</span><span>
+</span>python extrator_html.py https://exemplo.com
+<!-- -->
+<span></span><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># Ou executar e digitar URL depois</span><span>
+</span>python extrator_html.py
+</code></pre></div>
+
+### Versão GUI (Interface Gráfica)
+
+<div class="widget code-container remove-before-copy"><div class="code-header non-draggable"><span class="iaf s13 w700 code-language-placeholder">bash</span><div class="code-copy-button"><span class="iaf s13 w500 code-copy-placeholder">Copiar</span><img class="code-copy-icon" src="data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M10.8%208.63V11.57C10.8%2014.02%209.82%2015%207.37%2015H4.43C1.98%2015%201%2014.02%201%2011.57V8.63C1%206.18%201.98%205.2%204.43%205.2H7.37C9.82%205.2%2010.8%206.18%2010.8%208.63Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M15%204.42999V7.36999C15%209.81999%2014.02%2010.8%2011.57%2010.8H10.8V8.62999C10.8%206.17999%209.81995%205.19999%207.36995%205.19999H5.19995V4.42999C5.19995%201.97999%206.17995%200.999992%208.62995%200.999992H11.57C14.02%200.999992%2015%201.97999%2015%204.42999Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E%0A" /></div></div><pre id="code-w0cvkmsuo" style="color:white;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;padding:8px;margin:8px;overflow:auto;background:#011627;width:calc(100% - 8px);border-radius:8px;box-shadow:0px 8px 18px 0px rgba(120, 120, 143, 0.10), 2px 2px 10px 0px rgba(255, 255, 255, 0.30) inset"><code class="language-bash" style="white-space:pre;color:#d6deeb;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none"><span>python extrator_html_gui.py
+</span></code></pre></div>
+
+### Criar Executável (.exe)
+
+<div class="widget code-container remove-before-copy"><div class="code-header non-draggable"><span class="iaf s13 w700 code-language-placeholder">bash</span><div class="code-copy-button"><span class="iaf s13 w500 code-copy-placeholder">Copiar</span><img class="code-copy-icon" src="data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M10.8%208.63V11.57C10.8%2014.02%209.82%2015%207.37%2015H4.43C1.98%2015%201%2014.02%201%2011.57V8.63C1%206.18%201.98%205.2%204.43%205.2H7.37C9.82%205.2%2010.8%206.18%2010.8%208.63Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M15%204.42999V7.36999C15%209.81999%2014.02%2010.8%2011.57%2010.8H10.8V8.62999C10.8%206.17999%209.81995%205.19999%207.36995%205.19999H5.19995V4.42999C5.19995%201.97999%206.17995%200.999992%208.62995%200.999992H11.57C14.02%200.999992%2015%201.97999%2015%204.42999Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E%0A" /></div></div><pre id="code-xcxj3p3jx" style="color:white;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;padding:8px;margin:8px;overflow:auto;background:#011627;width:calc(100% - 8px);border-radius:8px;box-shadow:0px 8px 18px 0px rgba(120, 120, 143, 0.10), 2px 2px 10px 0px rgba(255, 255, 255, 0.30) inset"><code class="language-bash" style="white-space:pre;color:#d6deeb;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none"><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># Instalar PyInstaller</span><span>
+</span><span>pip </span><span class="token" style="color:rgb(130, 170, 255)">install</span><span> pyinstaller
+</span>
+<span></span><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># Executar build</span><span>
+</span>python build.py
+<!-- -->
+<span></span><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># O executável estará em: dist/ExtratorHTML.exe</span><span>
+</span></code></pre></div>
+
+## 📦 Estrutura do Projeto
+extrator-html-python/ │ ├── src/ │ ├── extrator_html.py # Versão CLI │ ├── extrator_html_gui.py # Versão GUI │ └── init.py │ ├── build.py # Script para criar executável ├── requirements.txt # Dependências ├── .gitignore ├── LICENSE └── README.md
+
+## 🧪 Exemplo de Uso
+
+<div class="widget code-container remove-before-copy"><div class="code-header non-draggable"><span class="iaf s13 w700 code-language-placeholder">python</span><div class="code-copy-button"><span class="iaf s13 w500 code-copy-placeholder">Copiar</span><img class="code-copy-icon" src="data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M10.8%208.63V11.57C10.8%2014.02%209.82%2015%207.37%2015H4.43C1.98%2015%201%2014.02%201%2011.57V8.63C1%206.18%201.98%205.2%204.43%205.2H7.37C9.82%205.2%2010.8%206.18%2010.8%208.63Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M15%204.42999V7.36999C15%209.81999%2014.02%2010.8%2011.57%2010.8H10.8V8.62999C10.8%206.17999%209.81995%205.19999%207.36995%205.19999H5.19995V4.42999C5.19995%201.97999%206.17995%200.999992%208.62995%200.999992H11.57C14.02%200.999992%2015%201.97999%2015%204.42999Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E%0A" /></div></div><pre id="code-ny49tnddc" style="color:white;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;padding:8px;margin:8px;overflow:auto;background:#011627;width:calc(100% - 8px);border-radius:8px;box-shadow:0px 8px 18px 0px rgba(120, 120, 143, 0.10), 2px 2px 10px 0px rgba(255, 255, 255, 0.30) inset"><code class="language-python" style="white-space:pre;color:#d6deeb;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none"><span class="token" style="color:rgb(127, 219, 202)">from</span><span> src</span><span class="token" style="color:rgb(199, 146, 234)">.</span><span>extrator_html </span><span class="token" style="color:rgb(127, 219, 202)">import</span><span> extrair_html
+</span>
+<span>url </span><span class="token" style="color:rgb(127, 219, 202)">=</span><span> </span><span class="token" style="color:rgb(173, 219, 103)">&quot;https://exemplo.com&quot;</span><span>
+</span><span>html </span><span class="token" style="color:rgb(127, 219, 202)">=</span><span> extrair_html</span><span class="token" style="color:rgb(199, 146, 234)">(</span><span>url</span><span class="token" style="color:rgb(199, 146, 234)">)</span><span>
+</span><span></span><span class="token" style="color:rgb(127, 219, 202)">print</span><span class="token" style="color:rgb(199, 146, 234)">(</span><span>html</span><span class="token" style="color:rgb(199, 146, 234)">[</span><span class="token" style="color:rgb(199, 146, 234)">:</span><span class="token" style="color:rgb(247, 140, 108)">500</span><span class="token" style="color:rgb(199, 146, 234)">]</span><span class="token" style="color:rgb(199, 146, 234)">)</span><span>  </span><span class="token" style="color:rgb(99, 119, 119);font-style:italic"># Primeiros 500 caracteres</span><span>
+</span></code></pre></div>
+
+## 📝 Requisitos
+
+- Python 3.7+
+- requests
+- beautifulsoup4
+- lxml
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+1. Fazer fork do projeto
+2. Criar uma branch (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abrir um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👤 Autor
+
+**Ivandir**
+
+## 🙏 Agradecimentos
+
+- BeautifulSoup pela excelente biblioteca de parsing HTML
+- Inner AI Fusion pela assistência no desenvolvimento
+requirements.txt
+txt
+Copiar
+
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+.gitignore
+gitignore
+Copiar
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados
+html_extraido_*.html
+*.log
+src/init.py
+python
+Copiar
+
+"""
+Extrator de HTML - Python
+Ferramenta para extrair HTML de URLs usando BeautifulSoup
+"""
+
+__version__ = "1.0.0"
+__author__ = "Ivandir"
+src/extrator_html.py
+python
+Copiar
+
+import requests
+from bs4 import BeautifulSoup
+import sys
+from datetime import datetime
+import os
+
+def extrair_html(url, salvar_arquivo=True):
+    """
+    Extrai o HTML de uma URL usando BeautifulSoup
+
+    Args:
+        url (str): URL para extrair HTML
+        salvar_arquivo (bool): Se True, salva em arquivo
+
+    Returns:
+        str: HTML extraído e formatado
+    """
+    try:
+        print(f"🔍 Acessando: {url}")
+
+        # Headers para simular um navegador real
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+
+        # Fazer requisição
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
+
+        print(f"✅ Status: {response.status_code}")
+
+        # Parse com BeautifulSoup
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # HTML formatado
+        html_bonito = soup.prettify()
+
+        if salvar_arquivo:
+            # Criar nome do arquivo com timestamp
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            nome_arquivo = f"html_extraido_{timestamp}.html"
+
+            # Salvar arquivo
+            with open(nome_arquivo, 'w', encoding='utf-8') as f:
+                f.write(html_bonito)
+
+            print(f"\n📄 HTML salvo em: {nome_arquivo}")
+            print(f"📊 Tamanho: {len(html_bonito)} caracteres")
+            print(f"📍 Local: {os.path.abspath(nome_arquivo)}")
+
+        # Mostrar preview
+        print("\n--- PREVIEW (primeiras 500 caracteres) ---")
+        print(html_bonito[:500])
+        print("...")
+
+        return html_bonito
+
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro ao acessar URL: {e}")
+        return None
+    except Exception as e:
+        print(f"❌ Erro inesperado: {e}")
+        return None
+
+def main():
+    """Função principal para execução CLI"""
+    print("=" * 60)
+    print("🌐 EXTRATOR DE HTML - BeautifulSoup")
+    print("=" * 60)
+    print()
+
+    # Verificar se URL foi passada como argumento
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+    else:
+        # Solicitar URL ao usuário
+        url = input("📎 Cole a URL aqui: ").strip()
+
+    if not url:
+        print("❌ URL não fornecida!")
+        input("\nPressione ENTER para sair...")
+        return
+
+    # Validar URL básica
+    if not url.startswith(('http://', 'https://')):
+        print("⚠️  Adicionando 'https://' à URL...")
+        url = 'https://' + url
+
+    # Extrair HTML
+    extrair_html(url)
+
+    print("\n" + "=" * 60)
+    input("\n✅ Processo concluído! Pressione ENTER para sair...")
+
+if __name__ == "__main__":
+    main()
+src/extrator_html_gui.py
+python
+Copiar
+
+import tkinter as tk
+from tkinter import ttk, scrolledtext, messagebox, filedialog
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+import threading
+import os
+
+class ExtratorHTMLGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("🌐 Extrator de HTML - v1.0")
+        self.root.geometry("900x700")
+        self.root.resizable(True, True)
+
+        # Variável para armazenar HTML
+        self.html_atual = ""
+
+        self.criar_interface()
+
+    def criar_interface(self):
+        """Cria a interface gráfica"""
+        # Frame principal
+        main_frame = ttk.Frame(self.root, padding="15")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+        # Configurar grid
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
+        main_frame.columnconfigure(1, weight=1)
+        main_frame.rowconfigure(2, weight=1)
+
+        # Título
+        titulo = ttk.Label(main_frame, text="🌐 Extrator de HTML", font=('Arial', 16, 'bold'))
+        titulo.grid(row=0, column=0, columnspan=3, pady=(0, 15))
+
+        # URL Input
+        ttk.Label(main_frame, text="URL:", font=('Arial', 10)).grid(row=1, column=0, sticky=tk.W, pady=5)
+        self.url_entry = ttk.Entry(main_frame, width=60, font=('Arial', 10))
+        self.url_entry.grid(row=1, column=1, pady=5, padx=5, sticky=(tk.W, tk.E))
+
+        # Botão Extrair
+        self.btn_extrair = ttk.Button(main_frame, text="🔍 Extrair", command=self.extrair_thread)
+        self.btn_extrair.grid(row=1, column=2, pady=5, padx=5)
+
+        # Frame para botões de ação
+        btn_frame = ttk.Frame(main_frame)
+        btn_frame.grid(row=2, column=0, columnspan=3, pady=10, sticky=(tk.W, tk.E))
+
+        self.btn_salvar = ttk.Button(btn_frame, text="💾 Salvar Arquivo", command=self.salvar_arquivo)
+        self.btn_salvar.pack(side=tk.LEFT, padx=5)
+
+        self.btn_copiar = ttk.Button(btn_frame, text="📋 Copiar", command=self.copiar_clipboard)
+        self.btn_copiar.pack(side=tk.LEFT, padx=5)
+
+        self.btn_limpar = ttk.Button(btn_frame, text="🗑️ Limpar", command=self.limpar_texto)
+        self.btn_limpar.pack(side=tk.LEFT, padx=5)
+
+        # Área de texto com scrollbar
+        ttk.Label(main_frame, text="HTML Extraído:", font=('Arial', 10, 'bold')).grid(row=3, column=0, sticky=tk.W, pady=(10, 5))
+
+        text_frame = ttk.Frame(main_frame)
+        text_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
+        text_frame.columnconfigure(0, weight=1)
+        text_frame.rowconfigure(0, weight=1)
+
+        self.texto_html = scrolledtext.ScrolledText(
+            text_frame, 
+            width=100, 
+            height=25,
+            font=('Consolas', 9),
+            wrap=tk.NONE
+        )
+        self.texto_html.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+        # Scrollbar horizontal adicional
+        h_scrollbar = ttk.Scrollbar(text_frame, orient=tk.HORIZONTAL, command=self.texto_html.xview)
+        h_scrollbar.grid(row=1, column=0, sticky=(tk.W, tk.E))
+        self.texto_html.configure(xscrollcommand=h_scrollbar.set)
+
+        # Status bar
+        status_frame = ttk.Frame(main_frame)
+        status_frame.grid(row=5, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(10, 0))
+
+        self.status_label = ttk.Label(status_frame, text="✅ Pronto para extrair", foreground="green", font=('Arial', 9))
+        self.status_label.pack(side=tk.LEFT)
+
+        self.progress = ttk.Progressbar(status_frame, mode='indeterminate', length=200)
+        self.progress.pack(side=tk.RIGHT)
+
+    def extrair_thread(self):
+        """Executa extração em thread separada"""
+        thread = threading.Thread(target=self.extrair_html)
+        thread.daemon = True
+        thread.start()
+
+    def extrair_html(self):
+        """Extrai HTML da URL fornecida"""
+        url = self.url_entry.get().strip()
+
+        if not url:
+            messagebox.showwarning("Aviso", "Por favor, insira uma URL!")
+            return
+
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
+            self.url_entry.delete(0, tk.END)
+            self.url_entry.insert(0, url)
+
+        self.status_label.config(text="⏳ Extraindo HTML...", foreground="orange")
+        self.btn_extrair.config(state='disabled')
+        self.progress.start(10)
+
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.content, 'html.parser')
+            self.html_atual = soup.prettify()
+
+            self.texto_html.delete(1.0, tk.END)
+            self.texto_html.insert(1.0, self.html_atual)
+
+            tamanho = len(self.html_atual)
+            linhas = self.html_atual.count('\n')
+
+            self.status_label.config(
+                text=f"✅ Extraído com sucesso! {tamanho:,} caracteres | {linhas:,} linhas", 
+                foreground="green"
+            )
+
+        except requests.exceptions.Timeout:
+            messagebox.showerror("Erro", "Tempo esgotado ao acessar a URL!")
+            self.status_label.config(text="❌ Timeout na requisição", foreground="red")
+
+        except requests.exceptions.RequestException as e:
+            messagebox.showerror("Erro", f"Erro ao acessar URL:\n{str(e)}")
+            self.status_label.config(text="❌ Erro na requisição", foreground="red")
+
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro inesperado:\n{str(e)}")
+            self.status_label.config(text="❌ Erro inesperado", foreground="red")
+
+        finally:
+            self.btn_extrair.config(state='normal')
+            self.progress.stop()
+
+    def salvar_arquivo(self):
+        """Salva o HTML em arquivo"""
+        if not self.html_atual.strip():
+            messagebox.showwarning("Aviso", "Nenhum conteúdo para salvar!")
+            return
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nome_padrao = f"html_extraido_{timestamp}.html"
+
+        arquivo = filedialog.asksaveasfilename(
+            defaultextension=".html",
+            initialfile=nome_padrao,
+            filetypes=[("HTML files", "*.html"), ("All filesÓtima ideia! Vou te guiar para criar o repositório no GitHub e depois podemos editar os arquivos por aqui. Vou te mostrar o passo a passo:
+
+## 🚀 Passo 1: Criar Repositório no GitHub
+
+1. **Acesse:** https://github.com/new
+2. **Configure:**
+   - **Repository name:** `extrator-html-python`
+   - **Description:** `Ferramenta para extrair HTML de URLs usando BeautifulSoup`
+   - **Public** ou **Private** (sua escolha)
+   - ✅ Marque: **Add a README file**
+   - ✅ Marque: **Add .gitignore** → escolha **Python**
+   - Clique em **Create repository**
+
+## 📋 Passo 2: Estrutura de Arquivos para Criar
+
+Depois de criar o repo, vou te fornecer o conteúdo de cada arquivo para você adicionar via interface do GitHub:
+
+### **Arquivos que vamos criar:**
+
+extrator-html-python/ ├── README.md # Já criado automaticamente ├── .gitignore # Já criado automaticamente ├── requirements.txt # Vamos criar ├── extrator_html.py # Vamos criar (CLI) ├── extrator_html_gui.py # Vamos criar (GUI) ├── build.py # Vamos criar └── .github/ └── workflows/ └── build.yml # Vamos criar (CI/CD automático)
+
+## 📝 Passo 3: Conteúdo dos Arquivos
+
+Vou fornecer cada arquivo separadamente para você adicionar no GitHub:
+
+### **1. README.md**
+
+<div class="widget code-container remove-before-copy"><div class="code-header non-draggable"><span class="iaf s13 w700 code-language-placeholder">markdown</span><div class="code-copy-button"><span class="iaf s13 w500 code-copy-placeholder">Copiar</span><img class="code-copy-icon" src="data:image/svg+xml;utf8,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M10.8%208.63V11.57C10.8%2014.02%209.82%2015%207.37%2015H4.43C1.98%2015%201%2014.02%201%2011.57V8.63C1%206.18%201.98%205.2%204.43%205.2H7.37C9.82%205.2%2010.8%206.18%2010.8%208.63Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M15%204.42999V7.36999C15%209.81999%2014.02%2010.8%2011.57%2010.8H10.8V8.62999C10.8%206.17999%209.81995%205.19999%207.36995%205.19999H5.19995V4.42999C5.19995%201.97999%206.17995%200.999992%208.62995%200.999992H11.57C14.02%200.999992%2015%201.97999%2015%204.42999Z%22%20stroke%3D%22%23717C92%22%20stroke-width%3D%221.05%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E%0A" /></div></div><pre id="code-96ru9r3yi" style="color:white;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;padding:8px;margin:8px;overflow:auto;background:#011627;width:calc(100% - 8px);border-radius:8px;box-shadow:0px 8px 18px 0px rgba(120, 120, 143, 0.10), 2px 2px 10px 0px rgba(255, 255, 255, 0.30) inset"><code class="language-markdown" style="white-space:pre;color:#d6deeb;font-family:Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace;text-align:left;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:1em;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none"><span class="token title" style="color:rgb(199, 146, 234);font-weight:bold">#</span><span class="token title" style="color:rgb(214, 222, 235);font-weight:bold"> 🌐 Extrator de HTML - Python</span><span>
+</span>
+<!-- -->Ferramenta poderosa para extrair HTML de qualquer URL usando BeautifulSoup.
+<!-- -->
+<span></span><span class="token title" style="color:rgb(199, 146, 234);font-weight:bold">##</span><span class="token title" style="color:rgb(214, 222, 235);font-weight:bold"> ✨ Funcionalidades</span><span>
+</span>
+<span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 🔍 Extração de HTML completo de URLs
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 💾 Salvamento automático com timestamp
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 🖥️ Versão CLI (linha de comando)
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 🎨 Versão GUI (interface gráfica)
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 📦 Geração de executável (.exe)
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">-</span><span> 🚀 Preview do HTML extraído
+</span>
+<span></span><span class="token title" style="color:rgb(199, 146, 234);font-weight:bold">##</span><span class="token title" style="color:rgb(214, 222, 235);font-weight:bold"> 🛠️ Instalação</span><span>
+</span>
+<span></span><span class="token title" style="color:rgb(199, 146, 234);font-weight:bold">###</span><span class="token title" style="color:rgb(214, 222, 235);font-weight:bold"> Opção 1: Usar o Executável (Windows)</span><span>
+</span>
+<span></span><span class="token list" style="color:rgb(199, 146, 234)">1.</span><span> Baixe o executável na seção </span><span class="token" style="color:rgb(173, 219, 103)">[</span><span class="token content" style="color:rgb(173, 219, 103)">Releases</span><span class="token" style="color:rgb(173, 219, 103)">](</span><span class="token" style="color:rgb(173, 219, 103)">../../releases</span><span class="token" style="color:rgb(173, 219, 103)">)</span><span>
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">2.</span><span> Execute </span><span class="token code-snippet code" style="color:rgb(127, 219, 202)">`ExtratorHTML.exe`</span><span>
+</span><span></span><span class="token list" style="color:rgb(199, 146, 234)">3.</span><span> Cole a URL e pronto!
+</span>
+<span></span><span class="token title" style="color:rgb(199, 146, 234);font-weight:bold">###</span><span class="token title" style="color:rgb(214, 222, 235);font-weight:bold"> Opção 2: Executar com Python</span><span>
+</span>
+</code></pre></div>bash
+# Clone o repositório
+git clone https://github.com/SEU_USUARIO/extrator-html-python.git
+cd extrator-html-python
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Execute a versão CLI
+python extrator_html.py
+
+# Ou execute a versão GUI
+python extrator_html_gui.py
+🚀 Como Usar
+Versão CLI
+bash
+Copiar
+
+# Com URL como argumento
+python extrator_html.py https://exemplo.com
+
+# Ou digite a URL quando solicitado
+python extrator_html.py
+Versão GUI
+bash
+Copiar
+
+python extrator_html_gui.py
+Cole a URL no campo
+Clique em "🔍 Extrair HTML"
+Visualize o resultado
+Clique em "💾 Salvar Arquivo"
+🔨 Criar Executável
+bash
+Copiar
+
+# Instalar PyInstaller
+pip install pyinstaller
+
+# Executar script de build
+python build.py
+
+# O executável estará em: dist/ExtratorHTML.exe
+📦 Dependências
+requests - Para fazer requisições HTTP
+beautifulsoup4 - Para parse do HTML
+lxml - Parser XML/HTML
+tkinter - Interface gráfica (já incluído no Python)
+🤝 Contribuindo
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+Fazer fork do projeto
+Criar uma branch (git checkout -b feature/nova-funcionalidade)
+Commit suas mudanças (git commit -m 'Adiciona nova funcionalidade')
+Push para a branch (git push origin feature/nova-funcionalidade)
+Abrir um Pull Request
+📄 Licença
+MIT License - veja o arquivo LICENSE para detalhes.
+
+👤 Autor
+Ivandir
+
+GitHub: @SEU_USUARIO
+🙏 Agradecimentos
+Criado com Inner AI Fusion
+BeautifulSoup pela excelente biblioteca
+Comunidade Python
+⭐ Se este projeto foi útil, considere dar uma estrela! ```
+
+2. requirements.txt
+txt
+Copiar
+
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+pyinstaller==6.3.0
+3. extrator_html.py (já fornecido anteriormente)
+4. extrator_html_gui.py (já fornecido anteriormente)
+5. build.py (já fornecido anteriormente)
+6. .github/workflows/build.yml (CI/CD Automático)
+yaml
+Copiar
+
+name: Build Executável
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build executable
+      run: |
+        python build.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ExtratorHTML-Windows
+        path: dist/ExtratorHTML.exe
+🎯 Passo 4: Adicionar Arquivos no GitHub
+Via Interface Web:
+
+No seu repositório, clique em Add file → Create new file
+Digite o nome do arquivo (ex: requirements.txt)
+Cole o conteúdo
+Clique em Commit changes
+Repita para cada arquivo
+Ou via Git (se preferir):
+
+bash
+Copiar
+
+# Clone o repositório
+git clone https://github.com/SEU_USUARIO/extrator-html-python.git
+cd extrator-html-python
+
+# Crie os arquivos localmente (copie os conteúdos)
+# Depois:
+
+git add .
+git commit -m "Adiciona estrutura inicial do projeto"
+git push origin main
+🔗 Passo 5: Compartilhe o Link
+Depois de criar, me envie o link do repositório (ex: https://github.com/SEU_USUARIO/extrator-html-python) e podemos:
+
+✏️ Editar arquivos diretamente
+🐛 Corrigir bugs
+✨ Adicionar novas funcionalidades
+📝 Melhorar documentação
+🚀 Configurar releases automáticas
+Você já criou o repositório? Se sim, me passa o link que eu te ajudo a popular com os arquivos! Se preferir, posso te guiar passo a passo na criação de cada arquivo via interface do GitHub.
+
+
+Copiar
+ Passo 1: Criar Repositório no GitHub
+Acesse: https://github.com/new
+
+Configure assim:
+
+Repository name: extrator-html-python
+Description: Ferramenta para extrair HTML de qualquer URL usando BeautifulSoup
+Public ✅ (ou Private se preferir)
+Add README ✅
+Add .gitignore: Python
+License: MIT (opcional)
+Clique em "Create repository" Repository name: extrator-html-python
+Description: Ferramenta para extrair HTML de qualquer URL usando BeautifulSoup
+Public ✅ (ou Private se preferir)
+Add README ✅
+Add .gitignore: Python
+License: MIT (opcional)
+Clique em "Create repository"eu criei o repositorio voce nao pode simplesmente a partir de agora eu te mandar o link e voce fazer todos os outros passos por aqui ?
+
+
+GPT-5.1
+Inner AI Fusion
+Perfeito, era exatamente isso que eu estava esperando você fazer.
+A partir do momento em que você me mandar o link do repositório, eu consigo montar todo o projeto com você por aqui, gerando o conteúdo de cada arquivo para você só colar no GitHub (ou, se estiver com git local, rodar os comandos).
+
+Eu não tenho acesso direto à sua conta GitHub (não consigo clicar nem commitar por você), mas consigo:
+
+Definir toda a estrutura do projeto
+Escrever o conteúdo de todos os arquivos (extrator_html.py, extrator_html_gui.py, build.py, requirements.txt, workflows etc.)
+Ajudar a ajustar, debugar, refatorar qualquer coisa que você me trouxer de volta (erros, prints, trechos de código etc.)
+Então o fluxo ideal é:
+
+Você me manda o link do repo, por exemplo:
+https://github.com/seu-usuario/extrator-html-python
+Eu assumo a seguinte estrutura (podemos mudar se quiser):
+   extrator-html-python/
+   ├── extrator_html.py          # CLI
+   ├── extrator_html_gui.py      # GUI
+   ├── build.py                  # Gera o .exe
+   ├── requirements.txt
+   ├── README.md                 # Você já tem, eu te mando um modelo melhorado se quiser
+   ├── .gitignore                # Já criado (Python)
+   └── .github/
+       └── workflows/
+           └── build.yml         # CI/CD opcional
+Eu te mando, um por um, os códigos já prontos em blocos:
+Você abre o GitHub → botão Add file → Create new file
+Cola o conteúdo que eu mandar
+Clica em Commit changes
+Se quiser, a gente já pode fazer assim:
+
+1) Me manda o link do repositório
+Exemplo de resposta sua:
+
+Meu repositório: https://github.com/SEU_USUARIO/extrator-html-python
+
+2) Eu começo pelos arquivos essenciais
+Na sequência, eu te mando:
+
+requirements.txt
+extrator_html.py (versão linha de comando simples, já funcional)
+extrator_html_gui.py (interface gráfica)
+build.py
+E te explico em uma linha em qual lugar do GitHub criar cada arquivo.
+
+Depois de tudo criado, você testa no seu PC:
+
+bash
+Copiar
+
+git clone https://github.com/SEU_USUARIO/extrator-html-python.git
+cd extrator-html-python
+pip install -r requirements.txt
+python extrator_html.py
+# ou
+python extrator_html_gui.py
+Se der qualquer erro, você cola aqui o erro ou print, e eu ajusto o código com você.
+
+Manda o link do repositório que eu já começo a montar os arquivos.
+
+
+Copiar
+pronto adicionei o repositorio
+
+
+Grok 4 Fast
+Inner AI Fusion
+Perfeito! Agora vamos popular o repositório. Vou te guiar arquivo por arquivo. É bem simples - você só precisa ir no GitHub e colar o conteúdo que eu mandar.
+
+📁 Primeiro arquivo: requirements.txt
+Onde criar: No seu repositório → botão "Add file" → "Create new file"
+
+Nome do arquivo: requirements.txt
+
+Cole este conteúdo:
+
+txt
+Copiar
+
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
+pyinstaller==6.3.0
+Depois clique em "Commit new file"
+
+📁 Segundo arquivo: extrator_html.py (Versão CLI)
+Onde criar: "Add file" → "Create new file"
+
+Nome do arquivo: extrator_html.py
+
+Cole este conteúdo:
+
+python
+Copiar
+
+#!/usr/bin/env python3
+"""
+🌐 Extrator de HTML - Versão CLI
+Ferramenta para extrair HTML de qualquer URL usando BeautifulSoup
+"""
+
+import requests
+from bs4 import BeautifulSoup
+import sys
+from datetime import datetime
+import os
+import argparse
+
+def extrair_html(url, salvar_arquivo=True, mostrar_preview=True):
+    """
+    Extrai o HTML de uma URL usando BeautifulSoup
+
+    Args:
+        url (str): URL para extrair HTML
+        salvar_arquivo (bool): Se True, salva em arquivo
+        mostrar_preview (bool): Se True, mostra preview do HTML
+
+    Returns:
+        str: HTML extraído e formatado
+    """
+    try:
+        print(f"🔍 Acessando: {url}")
+        print("-" * 50)
+
+        # Headers para simular um navegador real
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+
+        # Fazer requisição
+        print("📡 Fazendo requisição HTTP...")
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
+
+        print(f"✅ Status: {response.status_code}")
+        print(f"📊 Tamanho da resposta: {len(response.content):,} bytes")
+
+        # Parse com BeautifulSoup
+        print("🔍 Processando HTML com BeautifulSoup...")
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # HTML formatado
+        html_bonito = soup.prettify()
+
+        if salvar_arquivo:
+            # Criar nome do arquivo com timestamp
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            nome_arquivo = f"html_extraido_{timestamp}.html"
+
+            # Salvar arquivo
+            with open(nome_arquivo, 'w', encoding='utf-8') as f:
+                f.write(html_bonito)
+
+            print(f"\n📄 HTML salvo em: {nome_arquivo}")
+            print(f"📊 Tamanho: {len(html_bonito):,} caracteres")
+            print(f"📍 Local: {os.path.abspath(nome_arquivo)}")
+
+        if mostrar_preview:
+            print("\n" + "=" * 60)
+            print("PREVIEW (primeiros 800 caracteres):")
+            print("=" * 60)
+            print(html_bonito[:800])
+            if len(html_bonito) > 800:
+                print("\n... (conteúdo cortado para preview)")
+            print("=" * 60)
+
+        return html_bonito
+
+    except requests.exceptions.Timeout:
+        print(f"❌ Timeout: A requisição demorou muito tempo")
+        return None
+    except requests.exceptions.ConnectionError:
+        print(f"❌ Erro de conexão: Verifique sua internet ou a URL")
+        return None
+    except requests.exceptions.HTTPError as e:
+        print(f"❌ Erro HTTP {e.response.status_code}: {e.response.reason}")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Erro ao acessar URL: {e}")
+        return None
+    except Exception as e:
+        print(f"❌ Erro inesperado: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+def main():
+    """Função principal para execução CLI"""
+    parser = argparse.ArgumentParser(
+        description="🌐 Extrator de HTML - BeautifulSoup",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Exemplos:
+  python extrator_html.py https://exemplo.com
+  python extrator_html.py --no-save https://exemplo.com
+  python extrator_html.py --no-preview https://exemplo.com
+        """
+    )
+
+    parser.add_argument('url', nargs='?', help='URL para extrair HTML')
+    parser.add_argument('--no-save', action='store_true', help='Não salvar em arquivo')
+    parser.add_argument('--no-preview', action='store_true', help='Não mostrar preview')
+    parser.add_argument('--version', action='version', version='Extrator HTML v1.0.0')
+
+    args = parser.parse_args()
+
+    print("=" * 60)
+    print("🌐 EXTRATOR DE HTML - BeautifulSoup")
+    print("Versão 1.0.0 | Criado por Ivandir")
+    print("=" * 60)
+    print()
+
+    # Verificar se URL foi passada como argumento
+    if args.url:
+        url = args.url
+    else:
+        # Solicitar URL ao usuário
+        print("📎 Cole a URL aqui:")
+        url = input("URL: ").strip()
+
+    if not url:
+        print("❌ URL não fornecida!")
+        print("\n💡 Dica: Use 'python extrator_html.py --help' para ver opções")
+        input("\nPressione ENTER para sair...")
+        return
+
+    # Validar URL básica
+    if not url.startswith(('http://', 'https://')):
+        print("⚠️  Adicionando 'https://' à URL...")
+        url = 'https://' + url
+
+    # Extrair HTML
+    html_resultado = extrair_html(
+        url=url,
+        salvar_arquivo=not args.no_save,
+        mostrar_preview=not args.no_preview
+    )
+
+    if html_resultado:
+        print(f"\n✅ Extração concluída com sucesso!")
+    else:
+        print(f"\n❌ Falha na extração!")
+
+    print("\n" + "=" * 60)
+    input("\nPressione ENTER para sair...")
+
+if __name__ == "__main__":
+    main()
+Depois clique em "Commit new file"
+
+📁 Terceiro arquivo: extrator_html_gui.py (Versão GUI)
+Onde criar: "Add file" → "Create new file"
+
+Nome do arquivo: extrator_html_gui.py
+
+Cole este conteúdo:
+
+python
+Copiar
+
+#!/usr/bin/env python3
+"""
+🌐 Extrator de HTML - Versão GUI
+Interface gráfica para extrair HTML de URLs usando BeautifulSoup
+"""
+
+import tkinter as tk
+from tkinter import ttk, scrolledtext, messagebox, filedialog
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+import threading
+import os
+import sys
+
+class ExtratorHTMLGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("🌐 Extrator de HTML - v1.0.0")
+        self.root.geometry("1000x750")
+        self.root.resizable(True, True)
+
+        # Variável para armazenar HTML
+        self.html_atual = ""
+        self.url_atual = ""
+
+        # Configurar ícone (opcional)
+        try:
+            self.root.iconbitmap('icon.ico')  # Se tiver um ícone
+        except:
+            pass
+
+        self.criar_interface()
+        self.root.protocol("WM_DELETE_WINDOW", self.ao_fechar)
+
+    def criar_interface(self):
+        """Cria a interface gráfica"""
+        # Estilo
+        style = ttk.Style()
+        style.theme_use('clam')
+
+        # Frame principal
+        main_frame = ttk.Frame(self.root, padding="15")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+        # Configurar grid weights
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
+        main_frame.columnconfigure(1, weight=1)
+        main_frame.rowconfigure(3, weight=1)
+
+        # Título
+        titulo_frame = ttk.Frame(main_frame)
+        titulo_frame.grid(row=0, column=0, columnspan=3, pady=(0, 15), sticky=tk.W)
+
+        titulo = ttk.Label(
+            titulo_frame, 
+            text="🌐 Extrator de HTML", 
+            font=('Arial', 18, 'bold')
+        )
+        titulo.pack(side=tk.LEFT)
+
+        versao = ttk.Label(
+            titulo_frame, 
+            text="v1.0.0", 
+            font=('Arial', 10), 
+            foreground="gray"
+        )
+        versao.pack(side=tk.RIGHT)
+
+        # Frame de entrada URL
+        url_frame = ttk.LabelFrame(main_frame, text="📎 URL", padding="10")
+        url_frame.grid(row=1, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=5)
+        url_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(url_frame, text="URL:", font=('Arial', 10)).grid(row=0, column=0, sticky=tk.W, padx=(0, 5))
+
+        self.url_entry = ttk.Entry(
+            url_frame, 
+            width=80, 
+            font=('Arial', 10),
+            relief='flat'
+        )
+        self.url_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(0, 5))
+        self.url_entry.bind('<Return>', lambda e: self.extrair_thread())
+
+        # Botão extrair
+        self.btn_extrair = ttk.Button(
+            url_frame, 
+            text="🔍 Extrair HTML", 
+            command=self.extrair_thread,
+            style='Accent.TButton'
+        )
+        self.btn_extrair.grid(row=0, column=2)
+
+        # Frame de botões de ação
+        btn_frame = ttk.Frame(main_frame)
+        btn_frame.grid(row=2, column=0, columnspan=3, pady=10, sticky=(tk.W, tk.E))
+
+        self.btn_salvar = ttk.Button(
+            btn_frame, 
+            text="💾 Salvar Arquivo", 
+            command=self.salvar_arquivo,
+            state='disabled'
+        )
+        self.btn_salvar.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.btn_copiar = ttk.Button(
+            btn_frame, 
+            text="📋 Copiar para Área de Transferência", 
+            command=self.copiar_clipboard,
+            state='disabled'
+        )
+        self.btn_copiar.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.btn_limpar = ttk.Button(
+            btn_frame, 
+            text="🗑️ Limpar Tudo", 
+            command=self.limpar_tudo
+        )
+        self.btn_limpar.pack(side=tk.LEFT)
+
+        # Frame de resultado
+        resultado_frame = ttk.LabelFrame(main_frame, text="📄 HTML Extraído", padding="5")
+        resultado_frame.grid(row=3, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
+        resultado_frame.columnconfigure(0, weight=1)
+        resultado_frame.rowconfigure(0, weight=1)
+
+        # Área de texto com scrollbars
+        text_frame = ttk.Frame(resultado_frame)
+        text_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        text_frame.columnconfigure(0, weight=1)
+        text_frame.rowconfigure(0, weight=1)
+
+        self.texto_html = scrolledtext.ScrolledText(
+            text_frame, 
+            width=120, 
+            height=30,
+            font=('Consolas', 9, 'normal'),
+            wrap=tk.NONE,
+            bg='#f8f9fa',
+            fg='#2d3748',
+            insertbackground='black'
+        )
+        self.texto_html.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+        # Scrollbars
+        v_scrollbar = ttk.Scrollbar(text_frame, orient=tk.VERTICAL, command=self.texto_html.yview)
+        v_scrollbar.grid(row=0, column=1, sticky=(tk.N, tk.S))
+        self.texto_html.configure(yscrollcommand=v_scrollbar.set)
+
+        h_scrollbar = ttk.Scrollbar(text_frame, orient=tk.HORIZONTAL, command=self.texto_html.xview)
+        h_scrollbar.grid(row=1, column=0, sticky=(tk.W, tk.E))
+        self.texto_html.configure(xscrollcommand=h_scrollbar.set)
+
+        # Status bar
+        status_frame = ttk.Frame(main_frame)
+        status_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(10, 0))
+        status_frame.columnconfigure(0, weight=1)
+
+        self.status_label = ttk.Label(
+            status_frame, 
+            text="✅ Pronto para extrair HTML", 
+            foreground="green", 
+            font=('Arial', 9)
+        )
+        self.status_label.pack(side=tk.LEFT)
+
+        self.progress = ttk.Progressbar(
+            status_frame, 
+            mode='indeterminate', 
+            length=300
+        )
+        self.progress.pack(side=tk.RIGHT, padx=(10, 0))
+
+        # Info adicional
+        info_frame = ttk.Frame(main_frame)
+        info_frame.grid(row=5, column=0, columnspan=3, pady=(5, 0), sticky=tk.W)
+
+        info_text = (
+            "💡 Dicas: "
+            "• Cole a URL e pressione ENTER ou clique em 'Extrair HTML' "
+            "• Use Ctrl+F para buscar no HTML "
+            "• O arquivo é salvo automaticamente com timestamp"
+        )
+        ttk.Label(info_frame, text=info_text, font=('Arial', 8), foreground="gray").pack(anchor=tk.W)
+
+    def extrair_thread(self):
+        """Executa extração em thread separada"""
+        if self.url_entry.get().strip():
+            thread = threading.Thread(target=self.extrair_html)
+            thread.daemon = True
+            thread.start()
+        else:
+            messagebox.showwarning("Aviso", "Por favor, insira uma URL válida!")
+
+    def extrair_html(self):
+        """Extrai HTML da URL fornecida"""
+        url = self.url_entry.get().strip()
+
+        if not url:
+            return
+
+        self.url_atual = url
+
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
+            self.url_entry.delete(0, tk.END)
+            self.url_entry.insert(0, url)
+
+        # Atualizar interface
+        self.status_label.config(text="⏳ Extraindo HTML...", foreground="orange")
+        self.btn_extrair.config(state='disabled')
+        self.progress.start(10)
+        self.root.update()
+
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8',
+            }
+
+            print(f"📡 Fazendo requisição para: {url}")
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+
+            print(f"✅ Resposta recebida: {len(response.content):,} bytes")
+
+            # Parse com BeautifulSoup
+            soup = BeautifulSoup(response.content, 'html.parser')
+            self.html_atual = soup.prettify()
+
+            # Limpar e inserir no texto
+            self.texto_html.delete(1.0, tk.END)
+            self.texto_html.insert(1.0, self.html_atual)
+
+            # Ir para o início
+            self.texto_html.see(1.0)
+
+            # Estatísticas
+            tamanho = len(self.html_atual)
+            linhas = self.html_atual.count('\n')
+            palavras = len(self.html_atual.split())
+
+            self.status_label.config(
+                text=f"✅ Extraído com sucesso! {tamanho:,} caracteres | {linhas:,} linhas | {palavras:,} palavras", 
+                foreground="green"
+            )
+
+            # Habilitar botões
+            self.btn_salvar.config(state='normal')
+            self.btn_copiar.config(state='normal')
+
+            # Salvar automaticamente
+            self.salvar_automatico()
+
+        except requests.exceptions.Timeout:
+            error_msg = "⏰ Timeout: A página demorou muito para carregar"
+            self.status_label.config(text=error_msg, foreground="red")
+            messagebox.showerror("Timeout", "A requisição demorou muito tempo.\nTente novamente ou verifique a URL.")
+
+        except requests.exceptions.ConnectionError:
+            error_msg = "🌐 Erro de conexão: Verifique sua internet"
+            self.status_label.config(text=error_msg, foreground="red")
+            messagebox.showerror("Erro de Conexão", "Não foi possível conectar à URL.\nVerifique sua conexão com a internet.")
+
+        except requests.exceptions.HTTPError as e:
+            error_msg = f"❌ HTTP {e.response.status_code}: {e.response.reason}"
+            self.status_label.config(text=error_msg, foreground="red")
+            messagebox.showerror("Erro HTTP", f"Erro {e.response.status_code}: {e.response.reason}")
+
+        except Exception as e:
+            error_msg = f"❌ Erro inesperado: {str(e)[:100]}"
+            self.status_label.config(text=error_msg, foreground="red")
+            messagebox.showerror("Erro Inesperado", f"Erro ao processar a página:\n{str(e)}")
+            print(f"Erro detalhado: {e}")
+            import traceback
+            traceback.print_exc()
+
+        finally:
+            self.btn_extrair.config(state='normal')
+            self.progress.stop()
+
+    def salvar_automatico(self):
+        """Salva automaticamente com timestamp"""
+        if not self.html_atual.strip():
+            return
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nome_arquivo = f"html_extraido_{timestamp}.html"
+
+        try:
+            with open(nome_arquivo, 'w', encoding='utf-8') as f:
+                f.write(f"<!-- HTML extraído de: {self.url_atual} -->\n")
+                f.write(f"<!-- Data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} -->\n\n")
+                f.write(self.html_atual)
+
+            print(f"💾 Arquivo salvo automaticamente: {nome_arquivo}")
+
+        except Exception as e:
+            print(f"⚠️ Erro ao salvar automaticamente: {e}")
+
+    def salvar_arquivo(self):
+        """Salva o HTML em arquivo com diálogo"""
+        if not self.html_atual.strip():
+            messagebox.showwarning("Aviso", "Nenhum conteúdo para salvar!")
+            return
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nome_padrao = f"html_extraido_{timestamp}.html"
+
+        arquivo = filedialog.asksaveasfilename(
+            title="Salvar HTML como...",
+            defaultextension=".html",
+            initialfile=nome_padrao,
+            filetypes=[
+                ("HTML files", "*.html"),
+                ("All files", "*.*")
+            ]
+        )
+
+        if arquivo:
+            try:
+                with open(arquivo, 'w', encoding='utf-8') as f:
+                    f.write(f"<!-- HTML extraído de: {self.url_atual} -->\n")
+                    f.write(f"<!-- Data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} -->\n\n")
+                    f.write(self.html_atual)
+
+                messagebox.showinfo(
+                    "Sucesso", 
+                    f"Arquivo salvo com sucesso!\n\n📁 {arquivo}\n📊 {len(self.html_atual):,} caracteres"
+                )
+                self.status_label.config(text=f"💾 Salvo: {os.path.basename(arquivo)}", foreground="blue")
+
+            except Exception as e:
+                messagebox.showerror("Erro", f"Erro ao salvar arquivo:\n{str(e)}")
+
+    def copiar_clipboard(self):
+        """Copia HTML para área de transferência"""
+        if not self.html_atual.strip():
+            messagebox.showwarning("Aviso", "Nenhum conteúdo para copiar!")
+            return
+
+        self.root.clipboard_clear()
+        self.root.clipboard_append(self.html_atual)
+        self.status_label.config(text="📋 HTML copiado para área de transferência", foreground="blue")
+        messagebox.showinfo("Copiado", "HTML copiado para área de transferência!")
+
+    def limpar_tudo(self):
+        """Limpa todos os campos"""
+        self.url_entry.delete(0, tk.END)
+        self.texto_html.delete(1.0, tk.END)
+        self.html_atual = ""
+        self.url_atual = ""
+        self.btn_salvar.config(state='disabled')
+        self.btn_copiar.config(state='disabled')
+        self.status_label.config(text="🗑️ Limpo - Pronto para nova extração", foreground="gray")
+
+    def ao_fechar(self):
+        """Ação ao fechar a janela"""
+        if messagebox.askokcancel("Sair", "Deseja realmente sair?"):
+            self.root.destroy()
+
+def main():
+    """Função principal"""
+    try:
+        root = tk.Tk()
+        app = ExtratorHTMLGUI(root)
+
+        # Centralizar janela
+        root.update_idletasks()
+        x = (root.winfo_screenwidth() // 2) - (root.winfo_width() // 2)
+        y = (root.winfo_screenheight() // 2) - (root.winfo_height() // 2)
+        root.geometry(f"+{x}+{y}")
+
+        print("🌐 Extrator de HTML GUI iniciado!")
+        print("💡 Dica: Você pode arrastar este terminal para ver logs")
+
+        root.mainloop()
+
+    except ImportError as e:
+        print(f"❌ Erro de importação: {e}")
+        print("💡 Instale as dependências com: pip install -r requirements.txt")
+        input("Pressione ENTER para sair...")
+    except Exception as e:
+        print(f"❌ Erro ao iniciar GUI: {e}")
+        import traceback
+        traceback.print_exc()
+        input("Pressione ENTER para sair...")
+
+if __name__ == "__main__":
+    main()
+Depois clique em "Commit new file"
+
+🎉 Status atual:
+Agora você tem:
+
+✅ requirements.txt - Dependências
+✅ extrator_html.py - Versão linha de comando
+✅ extrator_html_gui.py - Versão com interface gráfica
+🧪 Próximos passos:
+1. Teste o projeto localmente:
+
+bash
+Copiar
+
+# Clone seu repositório
+git clone https://github.com/ivandirfilho/extrator-html-python.git
+cd extrator-html-python
+
+# Instale dependências
+pip install -r requirements.txt
+
+# Teste a versão CLI
+python extrator_html.py https://gemini.google.com/share/ee2aa49ed862
+
+# Teste a versão GUI
+python extrator_html_gui.py
+2. Me diga se funcionou - se der algum erro, cole aqui que eu ajusto!
+
+3. Se estiver funcionando, eu te mando os próximos arquivos:
+
+build.py (para criar o .exe)
+Workflow GitHub Actions (CI/CD automático)
+Arquivos de documentação melhorados
+Testou já? Como foi? Me conta se deu tudo certo ou se precisa ajustar algo!
+
+
+Copiar
+pronto que caminho vamos seguir agora?
+
+
+Grok 4 Fast
+Inner AI Fusion
+Excelente! Agora que temos os arquivos principais funcionando, vamos seguir este caminho estruturado:
+
+🛤️ Caminho de Desenvolvimento - Próximos Passos
+Fase 1: Teste e Validação (Agora)
+Objetivo: Confirmar que tudo está funcionando perfeitamente
+
+O que fazer:
+
+Teste local - Clone e rode os scripts
+Teste com a URL do Gemini - Extraia o HTML que você queria
+Validação - Verificar se o HTML extraído está correto
+Comandos para testar:
+
+bash
+Copiar
+
+# 1. Clone seu repositório
+git clone https://github.com/ivandirfilho/extrator-html-python.git
+cd extrator-html-python
+
+# 2. Instale dependências
+pip install -r requirements.txt
+
+# 3. Teste CLI com sua URL
+python extrator_html.py https://gemini.google.com/share/ee2aa49ed862
+
+# 4. Teste GUI
+python extrator_html_gui.py
+Me conte o resultado - funcionou? Deu algum erro? O HTML do Gemini foi extraído corretamente?
+
+Fase 2: Build e Executável (Depois do teste)
+Objetivo: Criar o .exe para usar sem Python
+
+Arquivos que vou criar:
+
+build.py - Script para gerar o executável
+setup.py - Para instalação como pacote
+.github/workflows/build.yml - CI/CD automático
+Fase 3: Melhorias e Features (Opcional)
+Objetivo: Tornar a ferramenta mais profissional
+
+Funcionalidades que podemos adicionar:
+
+✅ Extração seletiva - Extrair apenas partes específicas (divs, classes)
+🔍 Busca no HTML - Procurar elementos específicos
+📊 Análise do HTML - Estatísticas, estrutura, links encontrados
+🌐 Suporte a JavaScript - Renderizar páginas dinâmicas (Selenium)
+💾 Banco de dados - Salvar histórico de extrações
+📱 API REST - Transformar em serviço web
+🛡️ Tratamento de erros avançado - Retry, proxies, etc.
+Fase 4: Documentação e Deploy (Final)
+Objetivo: Preparar para uso profissional e distribuição
+
+O que fazer:
+
+📖 Documentação completa (docstrings, exemplos)
+📦 Releases no GitHub com .exe pré-compilado
+🏷️ Tags e versões (v1.0.0, v1.1.0, etc.)
+📋 Issues e roadmap para futuras versões
+🎯 Próximo Passo Imediato
+Antes de qualquer coisa, vamos testar o que já temos:
+
+Rode o teste local (comandos acima)
+Teste com a URL do Gemini especificamente
+Me mande o feedback:
+✅ Funcionou tudo?
+❌ Deu algum erro? (cole o erro aqui)
+📄 O HTML extraído do Gemini está correto?
+🎨 A interface GUI está legal?
+Depois do teste, eu crio o build.py para você gerar o executável .exe e podemos decidir se quer alguma das features avançadas.
+
+🚀 Fluxo Sugerido
+AGORA → Teste local
+     ↓
+     → Se OK → Criar build.py (.exe)
+     ↓
+     → Se OK → Features avançadas (opcional)
+     ↓
+     → Documentação + Releases
+Qual é o status do teste? Conseguiu rodar os scripts? O HTML do Gemini foi extraído direitinho? Me conta como foi que eu já preparo o próximo passo!
+
+
+Copiar
